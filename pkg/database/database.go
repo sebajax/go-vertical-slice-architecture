@@ -10,7 +10,7 @@ import (
 )
 
 type DbConn struct {
-	dbPool *sql.DB
+	DbPool *sql.DB
 }
 
 // InitPool initializes the database connection pool and runs migrations.
@@ -40,19 +40,14 @@ func InitPool(config *DbConfig) *DbConn {
 
 	// Return the connection pool pointer singleton connection
 	return &DbConn{
-		dbPool: db,
+		DbPool: db,
 	}
-}
-
-// GetPool returns the database connection pool.
-func (db *DbConn) GetPool() *sql.DB {
-	return db.dbPool
 }
 
 // ClosePool closes the database connection pool.
 func (db *DbConn) ClosePool() error {
-	if db.dbPool != nil {
-		return db.dbPool.Close()
+	if db.DbPool != nil {
+		return db.DbPool.Close()
 	}
 	return nil
 }

@@ -6,32 +6,42 @@ import (
 	"github.com/sebajax/go-architecture-angrycoders/pkg/apperror"
 )
 
+// User use cases
 type UserService struct {
 	userRepository IUserRepository
-	userModel      IUserModel
 }
 
-func NewUserService(userRepository IUserRepository, userModel IUserModel) UserService {
-	return UserService{
+// Create a new user service use case instance
+func NewUserService(userRepository IUserRepository) *UserService {
+	// return the pointer to user service
+	return &UserService{
 		userRepository,
-		userModel,
 	}
 }
 
-func (userService *UserService) CreateUser(user *User) (int, error) {
-	_, err := userService.userRepository.GetUserByEmail(user.Email)
+// Create a new user and store the user in the database
+func (userService *UserService) CreateUser(user *User) (int64, error) {
+	_, check, err := userService.userRepository.GetByEmail(user.Email)
+	// check if user does not exist and no database error ocurred
 	if err != nil {
-		// log the error & return the error
-		log.Println(user, ErrorUserEmailExists)
-		return 0, apperror.BadRequest(ErrorUserEmailExists)
+		// database error
+		log.Fatalln(err)
+		return 0, apperror.InternalServerError()
+	} 
+	if check != false {
+		// no user found
+		log.Println(user, ErrorEmailExists)
+		return 0, apperror.NotFound(ErrorEmailExists)
 	}
 
-	userModel := userService.userModel.transformUserModel(user)
-	userId, err := userService.userRepository.AddUser(&userModel)
+	// create the new user and return the id
+	userId, err := userService.userRepository.Save(user)
 	if err != nil {
-		// return nil, apperror.NewBadRequestError("DATABASE_ERROR")
+		// database error
+		log.Fatalln(err)
+		return 0, apperror.InternalServerError()
 	}
 
+	// user created successfuly
 	return userId, nil
-
 }

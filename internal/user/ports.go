@@ -1,16 +1,7 @@
 package user
 
-import (
-	"github.com/sebajax/go-architecture-angrycoders/internal/user/adapter"
-)
-
+// User port interface definition for depedency injection
 type IUserRepository interface {
-	AddUser(userModel *adapter.UserModel) (int, error)
-	GetUserByEmail(email string) (adapter.UserModel, error)
-	// GetUsers() ([]*User, error)
-	// GetUser(id int) (User, error)
-}
-
-type IUserModel interface {
-	transformUserModel(user *User) adapter.DBUserModel
+	Save(u *User) (int64, error)
+	GetByEmail(email string) (User, bool, error)
 }
