@@ -2,7 +2,7 @@
 
 #### Seba Ituarte & Luis Fernando Miranda - This structure will help in the project building using golang and fiber to isolate the dependencies and have a cleaner code
 
-![alt text](./golang.png)
+![alt text](./go_vertical-slicing-architecture.drawio.png)
 
 ### This app uses conventional commits
 
