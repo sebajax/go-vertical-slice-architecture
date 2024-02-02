@@ -8,17 +8,17 @@ import (
 )
 
 // User repository for querying the database
-type userRepository struct {
+type UserRepository struct {
 	db *database.DbConn
 }
 
 // Create a user instance repository
-func NewUserRepository(dbcon *database.DbConn) *userRepository {
-	return &userRepository{db: dbcon}
+func NewUserRepository(dbcon *database.DbConn) *UserRepository {
+	return &UserRepository{db: dbcon}
 }
 
 // Stores a new user in the database
-func (repo *userRepository) Save(u *user.User) (int64, error) {
+func (repo *UserRepository) Save(u *user.User) (int64, error) {
 	query := `INSERT INTO users (name, email, date_of_birth) 
 				VALUES ($1, $2, $3)`
 	data, err := repo.db.DbPool.Exec(query, u.Name, u.Email, u.DateOfBirth)
@@ -35,7 +35,7 @@ func (repo *userRepository) Save(u *user.User) (int64, error) {
 
 
 // Gets the user by the email
-func (repo *userRepository) GetByEmail(email string) (*user.User, bool, error) {
+func (repo *UserRepository) GetByEmail(email string) (*user.User, bool, error) {
 	u := user.User{}
 	query := `SELECT id, name, email, role, date_of_birth, created_at, password 
 				FROM users 
