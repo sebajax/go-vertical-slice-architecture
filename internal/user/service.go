@@ -31,12 +31,14 @@ func (service *userService) CreateUser(user *User) (int64, error) {
 	if err != nil {
 		// database error
 		log.Fatalln(err)
-		return 0, apperror.InternalServerError()
+		err := apperror.InternalServerError()
+		return 0, err
 	} 
-	if !check {
-		// no user found
+	if check {
+		// user found
 		log.Println(user, ErrorEmailExists)
-		return 0, apperror.NotFound(ErrorEmailExists)
+		err := apperror.BadRequest(ErrorEmailExists)
+		return 0, err
 	}
 
 	// create the new user and return the id
@@ -44,7 +46,8 @@ func (service *userService) CreateUser(user *User) (int64, error) {
 	if err != nil {
 		// database error
 		log.Fatalln(err)
-		return 0, apperror.InternalServerError()
+		err := apperror.InternalServerError()
+		return 0, err
 	}
 
 	// user created successfuly

@@ -8,5 +8,5 @@ import (
 
 // UserRouter is the Router for GoFiber App
 func UserRouter(app fiber.Router, service user.UserService) {
-	app.Post("/users", handlers.CreateUser(service))
+	app.Post("/", handlers.CreateUser(service))
 }
