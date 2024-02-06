@@ -1,0 +1,14 @@
+disable-version-string: true
+mockname: '{{.InterfaceName}}'
+filename: '{{.MockName}}.go'
+outpkg: mocks
+packages:
+  github.com/sebajax/go-architecture-angrycoders/internal/user:
+    # place your package-specific config here
+    config:
+      dir: 'internal/{{.PackageName}}/mocks'
+    interfaces:
+      # select the interfaces you want mocked
+      UserRepository:
+        # Modify package-level config for this specific interface (if applicable)
+        config:

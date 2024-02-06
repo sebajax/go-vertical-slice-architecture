@@ -8,11 +8,12 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/sebajax/go-architecture-angrycoders/api/routes"
 	"github.com/sebajax/go-architecture-angrycoders/internal/user"
+	"go.uber.org/dig"
 )
 
 type mockUserRepository struct {}
 
-func NewMockUserRepository() *mockUserRepository {
+func NewMockUserRepository() user.UserRepository {
 	return &mockUserRepository{}
 }
 
@@ -31,12 +32,23 @@ func (mock *mockUserRepository) GetByEmail(email string) (*user.User, bool, erro
 	return nil, false, nil
 }
 
+var container *dig.Container
+
+var us user.UserService
+
 func main() {
 	// connect to the database
 
-	// inject dependecies
-	mock := NewMockUserRepository() 
-	userService := user.NewUserService(mock)
+	// prepare all components for dependency injection
+	ProvideUserComponents()
+
+	// instantiate all components with dependency injection
+	err := initComponents()
+	if err != nil {
+		panic(err)
+	}
+
+	// userService := user.NewUserService(repo)
 
 	// create fiber
 	app := fiber.New()
@@ -53,9 +65,24 @@ func main() {
 	// add api group for users
 	api := app.Group("/api") // /api
 	userApi := api.Group("/users") // /api/user
-	routes.UserRouter(userApi, userService)
+	routes.UserRouter(userApi, us)
 
 	// listen in port 8080
 	log.Fatal(app.Listen(":3000"))
 
+}
+
+func initComponents() error {
+	return container.Invoke(
+		func(u user.UserService) {
+			us = u
+		},
+	)
+}
+
+// inject provider for user components
+func ProvideUserComponents() {
+	container = dig.New()
+	container.Provide(NewMockUserRepository)
+	container.Provide(user.NewUserService)
 }
