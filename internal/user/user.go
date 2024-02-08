@@ -14,18 +14,22 @@ const (
 
 // User Domain
 type User struct {
-	Id          int
-	Name        string
-	Email       string
-	DateOfBirth time.Time
-	CreatedAt   time.Time
+	Id             int
+	IdentityNumber string
+	FirstName      string
+	LastName       string
+	Email          string
+	DateOfBirth    time.Time
+	CreatedAt      time.Time
 }
 
 // Create a new user instance
-func New(n string, e string, dob time.Time) (*User, error) {
+func New(in string, n string, fn string, ln string, e string, dob time.Time) (*User, error) {
 	return &User{
-		Name:        n,
-		Email:       e,
-		DateOfBirth: dob,
+		IdentityNumber: in,
+		FirstName:      fn,
+		LastName:       ln,
+		Email:          e,
+		DateOfBirth:    dob,
 	}, nil
 }
