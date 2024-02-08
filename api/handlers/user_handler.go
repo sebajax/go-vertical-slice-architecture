@@ -7,26 +7,26 @@ import (
 	"github.com/sebajax/go-architecture-angrycoders/pkg/messages"
 )
 
+// Creates a new user into the database
 func CreateUser(service user.UserService) fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		// Get body request
 		var requestBody user.User
+		// Validate the body
 		err := c.BodyParser(&requestBody)
 		if err != nil {
-			err := apperror.BadRequest("BAD_REQUEST")
-			return c.Status(err.Code).JSON(messages.ErrorResponse(err))
+			// Map the error and response via the middleware
+			return apperror.BadRequest("BAD_REQUEST")
 		}
 
+		// Execute the service
 		result, err := service.CreateUser(&requestBody)
 		if err != nil {
-			// Log the error, handle it, or send a custom response
-			if e, ok := err.(*apperror.AppError); ok {
-				return c.Status(e.Code).JSON(messages.ErrorResponse(e))		
-			}
-			// An internal server error ocurred trying to cast error to apperror 
-			return c.Status(fiber.StatusInternalServerError).JSON(messages.ErrorResponse(err))
+			// if service response an error return via the middleware
+			return err
 		}
 
-		// No errors
+		// Success execution
 		return c.Status(fiber.StatusCreated).JSON(messages.SuccessResponse(&result))
 	}
 }

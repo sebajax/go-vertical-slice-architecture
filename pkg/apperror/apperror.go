@@ -11,7 +11,7 @@ type AppError struct {
 }
 
 func (r *AppError) Error() string {
-	return fmt.Sprintf("Error %d: %s", r.Code, r.Message)
+	return fmt.Sprintf(r.Message)
 }
 
 func NewAppError(code int, message string) *AppError {

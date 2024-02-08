@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
+	"github.com/sebajax/go-architecture-angrycoders/api/middlewares"
 	"github.com/sebajax/go-architecture-angrycoders/api/routes"
 	"github.com/sebajax/go-architecture-angrycoders/internal/user"
 	"go.uber.org/dig"
@@ -29,7 +30,7 @@ func (mock *mockUserRepository) GetByEmail(email string) (*user.User, bool, erro
 		DateOfBirth: time.Now(),
 		CreatedAt: time.Now(),
 	}, true, nil*/
-	return nil, false, nil
+	return nil, true, nil
 }
 
 var container *dig.Container
@@ -56,6 +57,9 @@ func main() {
 	// add fiber middlewares
 	app.Use(cors.New())
 	app.Use(helmet.New())
+
+	// custom middlewares
+	app.Use(middlewares.ErrorHandler)
 
 	// create health end point
 	app.Get("/health", func(c *fiber.Ctx) error {
