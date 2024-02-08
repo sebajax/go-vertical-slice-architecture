@@ -12,7 +12,7 @@ import (
 	"go.uber.org/dig"
 )
 
-type mockUserRepository struct {}
+type mockUserRepository struct{}
 
 func NewMockUserRepository() user.UserRepository {
 	return &mockUserRepository{}
@@ -67,7 +67,7 @@ func main() {
 	})
 
 	// add api group for users
-	api := app.Group("/api") // /api
+	api := app.Group("/api")       // /api
 	userApi := api.Group("/users") // /api/user
 	routes.UserRouter(userApi, us)
 

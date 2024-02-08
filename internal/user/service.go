@@ -33,7 +33,7 @@ func (service *userService) CreateUser(user *User) (int64, error) {
 		log.Fatalln(err)
 		err := apperror.InternalServerError()
 		return 0, err
-	} 
+	}
 	if check {
 		// user found
 		log.Println(user, ErrorEmailExists)

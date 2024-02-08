@@ -13,7 +13,7 @@ type User struct {
 	Name        string    `json:"name" validate:"required, gte=5"`
 	Email       string    `json:"email" validate:"required, email"`
 	DateOfBirth time.Time `json:"date_of_birth" validate:"required datetime"`
-	CreatedAt 	time.Time `json:"created_at"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 // Create a new user instance
@@ -22,6 +22,6 @@ func New(name string, email string, dateOfBirth time.Time, createdAt time.Time) 
 		Name:        name,
 		Email:       email,
 		DateOfBirth: dateOfBirth,
-		CreatedAt: 	 createdAt,
+		CreatedAt:   createdAt,
 	}, nil
 }

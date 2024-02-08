@@ -18,7 +18,7 @@ func InitPool(config *DbConfig) *DbConn {
 	var db *sql.DB
 
 	connectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-	config.dbName, config.dbPort, config.dbUser, config.dbPassword, config.dbName)
+		config.dbName, config.dbPort, config.dbUser, config.dbPassword, config.dbName)
 
 	// Initialize the connection pool
 	db, err := sql.Open("pgx", connectionString)

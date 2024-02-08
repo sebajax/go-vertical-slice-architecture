@@ -33,7 +33,6 @@ func (repo *UserRepository) Save(u *user.User) (int64, error) {
 	return userId, nil
 }
 
-
 // Gets the user by the email
 func (repo *UserRepository) GetByEmail(email string) (*user.User, bool, error) {
 	u := user.User{}

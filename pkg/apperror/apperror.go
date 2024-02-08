@@ -16,7 +16,7 @@ func (r *AppError) Error() string {
 
 func NewAppError(code int, message string) *AppError {
 	return &AppError{
-		Code: code,
+		Code:    code,
 		Message: message,
 	}
 }
