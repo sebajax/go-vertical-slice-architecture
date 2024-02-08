@@ -30,7 +30,7 @@
 
 ### Standalone usage
 
-    uvicorn app.main:app --reload
+    air
 
 ### Testing
 

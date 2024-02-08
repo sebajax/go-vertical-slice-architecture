@@ -1,0 +1,24 @@
+# ---------- Base ----------
+FROM golang:1.22.0-alpine3.19 AS go-builder
+
+# set work directory
+WORKDIR /app
+
+# install dependencies
+COPY go.mod go.sum ./
+RUN go mod download && go mod verify
+
+# copy project
+COPY . .
+
+# install air for hot reloading
+RUN go install github.com/cosmtrek/air@latest
+
+# ---------- Release ----------
+FROM go-builder AS release
+
+COPY --from=go-builder /app /app
+COPY --from=go-builder /go/bin/air /bin/air
+
+# ---------- Execution ----------
+CMD ["air"]

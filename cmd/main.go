@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -30,7 +32,7 @@ func (mock *mockUserRepository) GetByEmail(email string) (*user.User, bool, erro
 		DateOfBirth: time.Now(),
 		CreatedAt: time.Now(),
 	}, true, nil*/
-	return nil, true, nil
+	return nil, false, nil
 }
 
 var container *dig.Container
@@ -72,7 +74,7 @@ func main() {
 	routes.UserRouter(userApi, us)
 
 	// listen in port 8080
-	log.Fatal(app.Listen(":3000"))
+	log.Fatal(app.Listen(fmt.Sprintf(":%s", os.Getenv("API_PORT"))))
 
 }
 

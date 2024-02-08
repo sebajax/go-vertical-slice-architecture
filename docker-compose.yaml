@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  server:
+    container_name: ${PROJECT_NAME}-app
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/tmp
+    env_file:
+      - .env
+    ports:
+      - '${API_PORT}:${API_PORT}'
+    depends_on:
+      - db
+  db:
+    image: postgres:14.6-alpine
+    container_name: ${PROJECT_NAME}-db
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+      - ./migrations:/docker-entrypoint-initdb.d
+    env_file:
+      - .env
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      TZ: 'America/Santiago'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER} -d ${DB_NAME}']
+      interval: 5s
+      timeout: 1s
+      retries: 5
+volumes:
+  pgdata:
+    name: ${DB_NAME}
