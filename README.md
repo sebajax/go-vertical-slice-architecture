@@ -2,9 +2,9 @@
 
 #### Developed by Sebastián Ituarte & Luis Fernando Miranda
 
-@sebajax (Sebastián Ituarte)
+[@sebajax] (https://github.com/sebajax) (Sebastián Ituarte)
 
-@Abraxas-365 (Luis Fernando Miranda)
+[@Abraxas-365] (https://github.com/Abraxas-365) (Luis Fernando Miranda)
 
 #### This structure, created following the development guide's for vertical slice architecture, will help to isolate the dependencies, make development easier and have a cleaner and testable code in every package.
 
