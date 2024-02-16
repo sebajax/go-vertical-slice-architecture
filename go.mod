@@ -1,11 +1,12 @@
-module github.com/sebajax/go-architecture-angrycoders
+module github.com/sebajax/go-vertical-slice-architecture
 
-go 1.21.5
+go 1.21.6
 
 require (
 	github.com/go-playground/validator/v10 v10.17.0
 	github.com/gofiber/fiber/v2 v2.52.0
 	github.com/golang-migrate/migrate/v4 v4.17.0
+	github.com/sebajax/go-architecture-angrycoders v0.0.0-20240215234534-8b0c71a519da
 	go.uber.org/dig v1.17.1
 )
 
@@ -30,7 +31,6 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
 	github.com/lib/pq v1.10.9 // indirect
-	github.com/stretchr/testify v1.8.4 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/net v0.18.0 // indirect

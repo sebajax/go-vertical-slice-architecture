@@ -3,8 +3,8 @@ package infrastructure
 import (
 	"database/sql"
 
-	"github.com/sebajax/go-architecture-angrycoders/internal/user"
-	"github.com/sebajax/go-architecture-angrycoders/pkg/database"
+	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
+	"github.com/sebajax/go-vertical-slice-architecture/pkg/database"
 )
 
 // User repository for querying the database

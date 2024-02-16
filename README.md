@@ -1,6 +1,22 @@
 ## go-vertical-slice-architecture
 
-#### Seba Ituarte & Luis Fernando Miranda - This structure will help in the project building using golang and fiber to isolate the dependencies and have a cleaner code
+#### Developed by Sebastián Ituarte & Luis Fernando Miranda
+
+@sebajax (Sebastián Ituarte)
+
+@Abraxas-365 (Luis Fernando Miranda)
+
+#### This structure, created following the development guide's for vertical slice architecture, will help to isolate the dependencies, make development easier and have a cleaner and testable code in every package.
+
+#### Programming language: Golang
+
+#### Framework used: Fiber
+
+https://github.com/gofiber/fiber
+
+#### Dependency Injection: Dig
+
+https://github.com/uber-go/dig
 
 ![alt text](./go_vertical-slicing-architecture.drawio.png)
 
@@ -20,7 +36,7 @@
 ### Docker usage
 
     Build server
-        docker-compose -p go-architecture-angrycoders build
+        docker-compose -p go-vertical-slice-architecture build
 
     Start server
         docker-compose up -d

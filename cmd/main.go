@@ -8,50 +8,21 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
-	"github.com/sebajax/go-architecture-angrycoders/api/middlewares"
-	"github.com/sebajax/go-architecture-angrycoders/api/routes"
-	"github.com/sebajax/go-architecture-angrycoders/internal/user"
-	"go.uber.org/dig"
+	"github.com/sebajax/go-vertical-slice-architecture/api/middlewares"
+	"github.com/sebajax/go-vertical-slice-architecture/api/routes"
+	"github.com/sebajax/go-vertical-slice-architecture/cmd/injection"
 )
-
-type mockUserRepository struct{}
-
-func NewMockUserRepository() user.UserRepository {
-	return &mockUserRepository{}
-}
-
-func (mock *mockUserRepository) Save(u *user.User) (int64, error) {
-	return 1, nil
-}
-
-func (mock *mockUserRepository) GetByEmail(email string) (*user.User, bool, error) {
-	/*return &user.User{
-		Id: 1,
-		Email: "juan@example.com",
-		Name: "Juan",
-		DateOfBirth: time.Now(),
-		CreatedAt: time.Now(),
-	}, true, nil*/
-	return nil, false, nil
-}
-
-var container *dig.Container
-
-var us user.UserService
 
 func main() {
 	// connect to the database
 
 	// prepare all components for dependency injection
-	ProvideUserComponents()
+	injection.ProvideComponents()
 
 	// instantiate all components with dependency injection
-	err := initComponents()
-	if err != nil {
+	if err := injection.InitComponents(); err != nil {
 		panic(err)
 	}
-
-	// userService := user.NewUserService(repo)
 
 	// create fiber
 	app := fiber.New()
@@ -71,24 +42,9 @@ func main() {
 	// add api group for users
 	api := app.Group("/api")       // /api
 	userApi := api.Group("/users") // /api/user
-	routes.UserRouter(userApi, us)
+	routes.UserRouter(userApi, injection.UserServiceProvider)
 
 	// listen in port 8080
 	log.Fatal(app.Listen(fmt.Sprintf(":%s", os.Getenv("API_PORT"))))
 
-}
-
-func initComponents() error {
-	return container.Invoke(
-		func(u user.UserService) {
-			us = u
-		},
-	)
-}
-
-// inject provider for user components
-func ProvideUserComponents() {
-	container = dig.New()
-	container.Provide(NewMockUserRepository)
-	container.Provide(user.NewUserService)
 }

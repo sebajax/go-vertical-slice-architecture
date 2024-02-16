@@ -5,9 +5,9 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
-	"github.com/sebajax/go-architecture-angrycoders/internal/user"
-	"github.com/sebajax/go-architecture-angrycoders/pkg/apperror"
-	"github.com/sebajax/go-architecture-angrycoders/pkg/messages"
+	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
+	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
+	"github.com/sebajax/go-vertical-slice-architecture/pkg/messages"
 )
 
 // Body request schema for CreateUser

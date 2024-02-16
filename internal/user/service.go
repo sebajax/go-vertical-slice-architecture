@@ -3,7 +3,7 @@ package user
 import (
 	"log"
 
-	"github.com/sebajax/go-architecture-angrycoders/pkg/apperror"
+	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
 )
 
 // UserService interface for DI
