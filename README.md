@@ -1,10 +1,11 @@
 ## go-vertical-slice-architecture
 
-#### Developed by Sebastián Ituarte & Luis Fernando Miranda
-
-[@sebajax] (https://github.com/sebajax) (Sebastián Ituarte)
-
-[@Abraxas-365] (https://github.com/Abraxas-365) (Luis Fernando Miranda)
+## Authors
+Sebastián Ituarte
+- [@sebajax](https://www.github.com/sebajax)
+  
+Luis Fernando Miranda
+- [@Abraxas-365](https://www.github.com/Abraxas-365)
 
 #### This structure, created following the development guide's for vertical slice architecture, will help to isolate the dependencies, make development easier and have a cleaner and testable code in every package.
 
