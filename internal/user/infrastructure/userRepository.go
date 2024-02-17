@@ -13,7 +13,7 @@ type userRepository struct {
 }
 
 // Create a user instance repository
-func NewUserRepository(dbcon *database.DbConn) *userRepository {
+func NewUserRepository(dbcon *database.DbConn) user.UserRepository {
 	return &userRepository{db: dbcon}
 }
 

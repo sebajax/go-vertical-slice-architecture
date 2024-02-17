@@ -1,4 +1,4 @@
-package handlers
+package handler
 
 import (
 	"time"
@@ -8,6 +8,7 @@ import (
 	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/messages"
+	"github.com/sebajax/go-vertical-slice-architecture/pkg/validate"
 )
 
 // Body request schema for CreateUser
@@ -33,7 +34,7 @@ func CreateUser(service user.UserService) fiber.Handler {
 		}
 
 		// Validate schema
-		serr, err := Validate(body)
+		serr, err := validate.Validate(body)
 		if err != nil {
 			log.Error(serr)
 			return apperror.BadRequest(serr)

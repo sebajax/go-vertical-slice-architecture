@@ -8,9 +8,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
-	"github.com/sebajax/go-vertical-slice-architecture/api/middlewares"
-	"github.com/sebajax/go-vertical-slice-architecture/api/routes"
-	"github.com/sebajax/go-vertical-slice-architecture/cmd/injection"
+	"github.com/sebajax/go-vertical-slice-architecture/internal/user/api/route"
+	"github.com/sebajax/go-vertical-slice-architecture/pkg/injection"
+	"github.com/sebajax/go-vertical-slice-architecture/pkg/middlewares"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 	// prepare all components for dependency injection
 	injection.ProvideComponents()
 
-	// instantiate all components with dependency injection
+	// initiate service components with dependency injection
 	if err := injection.InitComponents(); err != nil {
 		panic(err)
 	}
@@ -42,9 +42,8 @@ func main() {
 	// add api group for users
 	api := app.Group("/api")       // /api
 	userApi := api.Group("/users") // /api/user
-	routes.UserRouter(userApi, injection.UserServiceProvider)
+	route.UserRouter(userApi, injection.UserServiceProvider)
 
 	// listen in port 8080
 	log.Fatal(app.Listen(fmt.Sprintf(":%s", os.Getenv("API_PORT"))))
-
 }
