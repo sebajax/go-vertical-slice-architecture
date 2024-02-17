@@ -19,7 +19,6 @@ services:
     container_name: ${PROJECT_NAME}-db
     volumes:
       - pgdata:/var/lib/postgresql/data/
-      - ./migrations:/docker-entrypoint-initdb.d
     env_file:
       - .env
     ports:

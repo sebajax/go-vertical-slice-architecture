@@ -2,6 +2,7 @@ package infrastructure
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/database"
@@ -19,25 +20,27 @@ func NewUserRepository(dbcon *database.DbConn) user.UserRepository {
 
 // Stores a new user in the database
 func (repo *userRepository) Save(u *user.User) (int64, error) {
-	query := `INSERT INTO users (identity_number, first_name, last_name, email, date_of_birth) 
-				VALUES ($1, $2, $3)`
-	data, err := repo.db.DbPool.Exec(query, u.IdentityNumber, u.FirstName, u.LastName, u.Email, u.DateOfBirth)
+	// Get the id inserted in the database
+	var id int64
+
+	query := `INSERT INTO client (identity_number, first_name, last_name, email, date_of_birth) 
+				VALUES ($1, $2, $3, $4, $5) RETURNING id`
+	err := repo.db.DbPool.QueryRow(query, u.IdentityNumber, u.FirstName, u.LastName, u.Email, u.DateOfBirth).Scan(&id)
 	if err != nil {
 		return 0, err
 	}
 
-	// Get the the id inserted in the database
-	userId, _ := data.LastInsertId()
+	fmt.Println("id: ", id)
 
 	// No errors return the user id inserted
-	return userId, nil
+	return id, nil
 }
 
 // Gets the user by the email
 func (repo *userRepository) GetByEmail(email string) (*user.User, bool, error) {
 	u := user.User{}
-	query := `SELECT id, identity_number, first_name, last_name, email, role, date_of_birth, created_at, password 
-				FROM users 
+	query := `SELECT id, identity_number, first_name, last_name, email, date_of_birth, created_at
+				FROM client 
 				WHERE email = $1`
 	err := repo.db.DbPool.QueryRow(query, email).Scan(&u.Id, &u.IdentityNumber, &u.FirstName, &u.LastName, &u.Email, &u.DateOfBirth, &u.CreatedAt)
 	if err != nil {

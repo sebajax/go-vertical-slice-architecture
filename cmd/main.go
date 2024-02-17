@@ -14,8 +14,6 @@ import (
 )
 
 func main() {
-	// connect to the database
-
 	// prepare all components for dependency injection
 	injection.ProvideComponents()
 

@@ -10,7 +10,7 @@ type DbConfig struct {
 }
 
 // Create a new db config type
-func NewDbConfig(user string, password, string, name string, host string, port string) *DbConfig {
+func NewDbConfig(user string, password string, name string, host string, port string) *DbConfig {
 	return &DbConfig{
 		dbUser:     user,
 		dbPassword: password,

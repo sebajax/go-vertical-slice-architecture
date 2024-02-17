@@ -7,6 +7,8 @@ import (
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 type DbConn struct {
@@ -18,7 +20,7 @@ func InitPool(config *DbConfig) *DbConn {
 	var db *sql.DB
 
 	connectionString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		config.dbName, config.dbPort, config.dbUser, config.dbPassword, config.dbName)
+		config.dbHost, config.dbPort, config.dbUser, config.dbPassword, config.dbName)
 
 	// Initialize the connection pool
 	db, err := sql.Open("pgx", connectionString)
@@ -68,7 +70,8 @@ func runMigration(db *sql.DB, path string) error {
 		return err
 	}
 
-	if err := m.Up(); err != nil {
+	// Migrate up to the latest active version
+	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
 		return err
 	}
 

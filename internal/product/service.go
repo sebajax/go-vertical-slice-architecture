@@ -28,7 +28,7 @@ func (userService *UserService) CreateUser(user *User) (int64, error) {
 		log.Fatalln(err)
 		return 0, apperror.InternalServerError()
 	}
-	if check != false {
+	if check {
 		// no user found
 		log.Println(user, ErrorEmailExists)
 		return 0, apperror.NotFound(ErrorEmailExists)

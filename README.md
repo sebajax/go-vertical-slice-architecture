@@ -67,6 +67,10 @@ Vertical slice architecture is an approach to software development where code an
 
 ## 🤜 How to create a new use case (Example)
 
+### Database diagram for the project
+
+![alt text](./db_diagram.png)
+
 ## ⚙️ Usage
 
 ### Docker usage
@@ -92,9 +96,28 @@ Vertical slice architecture is an approach to software development where code an
     To run unit testing coverage
         go test -cover ./...
 
+### Formatting, Linting and Vetting
+
+    To run formating
+        go fmt ./...
+
+    To remove unused imports
+        goimports -l -w .
+
+    To run linting
+        golangci-lint run ./...
+
+    To run vetting
+        go vet ./...
+
 ### Database migration script
 
+    To create the script
+        migrate create -ext sql -dir /migrations -seq [script_name]
     To run the script
+        migrate -database ${POSTGRESQL_URL} -path /migrations up
+
+    * It will run automatically when the database initializes
 
 ## 💻 Environment variables
 
