@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
+	"github.com/sebajax/go-vertical-slice-architecture/internal/user/service"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/messages"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/validate"
@@ -21,7 +22,7 @@ type UserSchema struct {
 }
 
 // Creates a new user into the database
-func CreateUser(service user.UserService) fiber.Handler {
+func CreateUser(s service.CreateUserService) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Get body request
 		var body UserSchema
@@ -50,7 +51,7 @@ func CreateUser(service user.UserService) fiber.Handler {
 		}
 
 		// Execute the service
-		result, err := service.CreateUser(user)
+		result, err := s.CreateUser(user)
 		if err != nil {
 			// if service response an error return via the middleware
 			log.Error(err)

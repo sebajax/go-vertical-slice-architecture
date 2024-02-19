@@ -3,8 +3,7 @@ package injection
 import (
 	"os"
 
-	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
-	"github.com/sebajax/go-vertical-slice-architecture/internal/user/infrastructure"
+	userservice "github.com/sebajax/go-vertical-slice-architecture/internal/user/service"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/database"
 	"go.uber.org/dig"
 )
@@ -12,8 +11,8 @@ import (
 // container instance
 var container *dig.Container
 
-// user service instance
-var UserServiceProvider user.UserService
+// new service instace
+var UserServiceProvider *userservice.UserService
 
 // provide components for injection
 func ProvideComponents() {
@@ -44,27 +43,15 @@ func ProvideComponents() {
 	}
 
 	// user provider injection
-	err = container.Provide(infrastructure.NewUserRepository)
-	if err != nil {
-		panic(err)
-	}
+	userservice.ProvideUserComponents(container)
 
-	err = container.Provide(user.NewUserService)
-	if err != nil {
-		panic(err)
-	}
 }
 
 // init service container
 func InitComponents() error {
-	// user service
-	err := container.Invoke(
-		func(us user.UserService) {
-			UserServiceProvider = us
-		},
-	)
-
-	// product instance
+	// user service init componets injection
+	UserServiceProvider = userservice.NewUserService()
+	err := UserServiceProvider.InitUserComponents(container)
 
 	return err
 }

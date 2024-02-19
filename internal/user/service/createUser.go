@@ -1,32 +1,33 @@
-package user
+package service
 
 import (
 	"log"
 
+	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
 )
 
-// UserService interface for DI
-type UserService interface {
-	CreateUser(user *User) (int64, error)
+// CreateUserService interface for DI
+type CreateUserService interface {
+	CreateUser(user *user.User) (int64, error)
 }
 
 // User use cases (port injection)
-type userService struct {
-	userRepository UserRepository
+type createUserService struct {
+	userRepository user.UserRepository
 }
 
 // Create a new user service use case instance
-func NewUserService(repository UserRepository) UserService {
+func NewCreateUserService(repository user.UserRepository) CreateUserService {
 	// return the pointer to user service
-	return &userService{
+	return &createUserService{
 		userRepository: repository,
 	}
 }
 
 // Create a new user and store the user in the database
-func (service *userService) CreateUser(user *User) (int64, error) {
-	_, check, err := service.userRepository.GetByEmail(user.Email)
+func (service *createUserService) CreateUser(u *user.User) (int64, error) {
+	_, check, err := service.userRepository.GetByEmail(u.Email)
 	// check if user does not exist and no database error ocurred
 	if err != nil {
 		// database error
@@ -36,13 +37,13 @@ func (service *userService) CreateUser(user *User) (int64, error) {
 	}
 	if check {
 		// user found
-		log.Println(user, ErrorEmailExists)
-		err := apperror.BadRequest(ErrorEmailExists)
+		log.Println(u, user.ErrorEmailExists)
+		err := apperror.BadRequest(user.ErrorEmailExists)
 		return 0, err
 	}
 
 	// create the new user and return the id
-	userId, err := service.userRepository.Save(user)
+	userId, err := service.userRepository.Save(u)
 	if err != nil {
 		// database error
 		log.Fatalln(err)
