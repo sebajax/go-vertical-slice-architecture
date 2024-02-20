@@ -1,4 +1,4 @@
-package messages
+package message
 
 import "github.com/gofiber/fiber/v2"
 

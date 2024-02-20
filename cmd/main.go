@@ -8,9 +8,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
-	"github.com/sebajax/go-vertical-slice-architecture/internal/user/api/route"
+	"github.com/sebajax/go-vertical-slice-architecture/internal/user/handler"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/injection"
-	"github.com/sebajax/go-vertical-slice-architecture/pkg/middlewares"
+	"github.com/sebajax/go-vertical-slice-architecture/pkg/middleware"
 )
 
 func main() {
@@ -30,7 +30,7 @@ func main() {
 	app.Use(helmet.New())
 
 	// custom middlewares
-	app.Use(middlewares.ErrorHandler)
+	app.Use(middleware.ErrorHandler)
 
 	// create health end point
 	app.Get("/health", func(c *fiber.Ctx) error {
@@ -40,7 +40,7 @@ func main() {
 	// add api group for users
 	api := app.Group("/api")       // /api
 	userApi := api.Group("/users") // /api/user
-	route.UserRouter(userApi, injection.UserServiceProvider)
+	handler.UserRouter(userApi, injection.UserServiceProvider)
 
 	// listen in port 8080
 	log.Fatal(app.Listen(fmt.Sprintf(":%s", os.Getenv("API_PORT"))))
