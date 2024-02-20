@@ -18,24 +18,29 @@ This structure, created following the development guide's for vertical slice arc
 
 Vertical slice architecture is an approach to software development where code and functionality are organized around individual features or user stories, encompassing all layers of the application from user interface to data access, promoting autonomy, reduced dependencies, and iterative development.
 
-![alt text](./vertical-slice-architecture.png)
+![alt text](./image/vertical-slice-architecture.png)
 
 ## 📚 Code Structure
 
-![alt text](./go-vertical-slice-architecture.png)
+![alt text](./image/go-vertical-slice-architecture.png)
 
-    cmd
-        contains the main.go file that is our starting point to execute
-    migrations
-        contains all the database configuration for the api (if needed)
-    internal
-        contains all the api logic
+A brief description of the layout:
+
+- `.github` has two template files for creating PR and issue. Please see the files for more details.
+- `.gitignore` varies per project, but all projects need to ignore `bin` directory.
+- `.golangci.yml` is the golangci-lint config file.
+- `Makefile` is used to build the project. **You need to tweak the variables based on your project**.
+- `CHANGELOG.md` contains auto-generated changelog information.
+- `OWNERS` contains owners of the project.
+- `README.md` is a detailed description of the project.
+- `cmd` contains the main.go file that is our starting point to execute
+- `pkg` places most of project business logic.
+- `migrations` contains all vendored code.
+- `internal` contains all the api logic.
 
 ## 🚀 Stack
 
 <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" />
-<img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" />
-<img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
 
 ### Programming language
 
@@ -69,55 +74,78 @@ Vertical slice architecture is an approach to software development where code an
 
 ### Database diagram for the project
 
-![alt text](./db_diagram.png)
+![alt text](./image/db_diagram.png)
+
+### Internal folder structure for a new domain
+
+![alt text](./image/internal_domain.jpg)
+
+### 1 - Create product.go (domain)
 
 ## ⚙️ Usage
 
 ### Docker usage
 
-    Build server
+```bash
+    # Build server
         docker-compose -p go-vertical-slice-architecture build
 
-    Start server
+    # Start server
         docker-compose up -d
 
-    Stop server
+    # Stop server
         docker-compose down
+```
 
 ### Standalone usage
 
-    air
+```bash
+    # Live reload
+        air
+```
 
 ### Testing
 
-    To run unit testing
+```bash
+    # To run unit testing
         go test
 
-    To run unit testing coverage
+    # To run unit testing coverage
         go test -cover ./...
+```
 
 ### Formatting, Linting and Vetting
 
-    To run formating
+```bash
+    # Run formating
         go fmt ./...
 
-    To remove unused imports
+    # Remove unused imports
         goimports -l -w .
 
-    To run linting
+    # Run linting
         golangci-lint run ./...
 
-    To run vetting
+    # Run vetting
         go vet ./...
+
+    # Run shadow to check shadowed variables
+        # Install shadow
+        go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow@latest
+        # Run shadow
+        shadow ./...
+```
 
 ### Database migration script
 
-    To create the script
+```bash
+    # Create the script
         migrate create -ext sql -dir /migrations -seq [script_name]
-    To run the script
+    # Run the script
         migrate -database ${POSTGRESQL_URL} -path /migrations up
 
-    * It will run automatically when the database initializes
+    # It will run automatically when the database initializes
+```
 
 ## 💻 Environment variables
 

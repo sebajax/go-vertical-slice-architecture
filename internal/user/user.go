@@ -7,11 +7,6 @@ const (
 	ErrorEmailExists string = "ERROR_EMAIL_EXISTS"
 )
 
-// Domain types
-// type name string
-// type email string
-// type dateOfBirth time.Time
-
 // User Domain
 type User struct {
 	Id             int
