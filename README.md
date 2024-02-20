@@ -1,3 +1,5 @@
+<img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" />
+
 <h1 align='center'>
     ⚡ go-vertical-slice-architecture
 </h1>
@@ -40,31 +42,17 @@ A brief description of the layout:
 
 ## 🚀 Stack
 
-<img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" />
+#### Programming language [Go](https://go.dev/)
 
-### Programming language
+#### Framework [Fiber](https://docs.gofiber.io/)
 
-- [Go](https://go.dev/)
+#### Dependency injection [Uber dig](https://github.com/uber-go/dig)
 
-### Framework
+#### Database [Postgre SQL](https://www.postgresql.org/)
 
-- [Fiber](https://docs.gofiber.io/)
+#### Container [Docker](https://www.docker.com/)
 
-### Dependency injection
-
-- [Uber dig](https://github.com/uber-go/dig)
-
-### Database
-
-- [Postgre SQL](https://www.postgresql.org/)
-
-### Container
-
-- [Docker](https://www.docker.com/)
-
-### Live reload
-
-- [Air](https://github.com/cosmtrek/air)
+#### Live reload [Air](https://github.com/cosmtrek/air)
 
 ## 🧐 This app uses conventional commits
 
@@ -76,13 +64,102 @@ A brief description of the layout:
 
 ![alt text](./image/db_diagram.png)
 
-### Internal folder structure for a new domain
+### Internal folder structure for a new domain all folders and files go in internal/product/
 
-![alt text](./image/internal_domain.jpg)
+```tree
+├───internal
+│   ├───product
+│   │   │   port.go
+│   │   │   product.go
+│   │   │
+│   │   ├───handler
+│   │   │       createProduct.go
+│   │   │       handler.go
+│   │   │
+│   │   ├───infrastructure
+│   │   │       productRepository.go
+│   │   │
+│   │   ├───mock
+│   │   │       mockProductRepository.go
+│   │   │
+│   │   └───service
+│   │           createProduct.go
+│   │           service.go
+```
 
-### 1 - Create product.go (domain)
+#### 1 - Create product.go (domain)
 
 https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263551bee3ee529de49b6d6fc5/internal/product/product.go#L1-L58
+
+#### 2 - Create infrastructure/productRepository.go (DB query)
+
+```tree
+├───internal
+│   ├───product
+│   │   ├───infrastructure
+│   │   │       productRepository.go
+```
+
+#### 3 - Create port.go (dp injection for the service)
+
+#### 4 - Create service/createProduct.go (create a new product use case implementation)
+
+```tree
+├───internal
+│   ├───product
+│   │   └───service
+│   │           createProduct.go
+│   │           service.go
+```
+
+#### 5 - Create service/service.go (dependency injection service using uber dig)
+
+```tree
+├───internal
+│   ├───product
+│   │   └───service
+│   │           createProduct.go
+│   │           service.go
+```
+
+#### 6 - Create handler/createProduct.go (create a new hanlder presenter to call the use case)
+
+```tree
+├───internal
+│   ├───product
+│   │   ├───handler
+│   │   │       createProduct.go
+│   │   │       handler.go
+```
+
+#### 7 - Create handler/handler.go (handles all the routes for all the presenters)
+
+```tree
+├───internal
+│   ├───product
+│   │   ├───handler
+│   │   │       createProduct.go
+│   │   │       handler.go
+```
+
+#### 8 - Create mock/mockProductRepository.go (mocks the user repository implementation for unit testing)
+
+```tree
+├───internal
+│   ├───product
+│   │   ├───mock
+│   │   │       mockProductRepository.go
+```
+
+#### 9 - Create service/createProduct_test.go (create a unit test for the service)
+
+```tree
+├───internal
+│   ├───product
+│   │   └───service
+│   │           createProduct.go
+│   │           service.go
+```
 
 ## ⚙️ Usage
 
