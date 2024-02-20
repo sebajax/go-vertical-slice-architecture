@@ -7,26 +7,21 @@ import (
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
 )
 
-// CreateUserService interface for DI
-type CreateUserService interface {
-	CreateUser(user *user.User) (int64, error)
-}
-
 // User use cases (port injection)
-type createUserService struct {
+type CreateUserService struct {
 	userRepository user.UserRepository
 }
 
 // Create a new user service use case instance
-func NewCreateUserService(repository user.UserRepository) CreateUserService {
+func NewCreateUserService(repository user.UserRepository) *CreateUserService {
 	// return the pointer to user service
-	return &createUserService{
+	return &CreateUserService{
 		userRepository: repository,
 	}
 }
 
 // Create a new user and store the user in the database
-func (service *createUserService) CreateUser(u *user.User) (int64, error) {
+func (service *CreateUserService) CreateUser(u *user.User) (int64, error) {
 	_, check, err := service.userRepository.GetByEmail(u.Email)
 	// check if user does not exist and no database error ocurred
 	if err != nil {

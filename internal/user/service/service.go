@@ -7,7 +7,7 @@ import (
 
 // user service instance
 type UserService struct {
-	CreateUserServiceProvider CreateUserService
+	CreateUserServiceProvider *CreateUserService
 }
 
 func NewUserService() *UserService {
@@ -33,7 +33,7 @@ func ProvideUserComponents(c *dig.Container) {
 func (us *UserService) InitUserComponents(c *dig.Container) error {
 	// create user service
 	err := c.Invoke(
-		func(s CreateUserService) {
+		func(s *CreateUserService) {
 			us.CreateUserServiceProvider = s
 		},
 	)

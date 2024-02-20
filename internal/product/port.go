@@ -1,4 +1,4 @@
-package user
+package product
 
 // User port interface definition for depedency injection
 type UserRepository interface {

@@ -9,7 +9,7 @@ const (
 
 // User Domain
 type User struct {
-	Id             int
+	Id             int64
 	IdentityNumber string
 	FirstName      string
 	LastName       string

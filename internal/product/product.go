@@ -28,7 +28,7 @@ func (p ProductCategory) String() string {
 		"Camera",
 		"Television",
 		"Other",
-	}
+	}[p]
 }
 
 // Const for error messages
@@ -38,17 +38,17 @@ const (
 )
 
 // Product Domain
-type User struct {
-	Id        int
+type Product struct {
+	Id        int64
 	Name      string
 	Sku       string
 	Category  ProductCategory
-	Price     string
+	Price     float64
 	CreatedAt time.Time
 }
 
 // Create a new product instance
-func New(n string, s string, c string, p string) (*Product, error) {
+func New(n string, s string, c ProductCategory, p float64) (*Product, error) {
 	return &Product{
 		Name:     n,
 		Sku:      s,

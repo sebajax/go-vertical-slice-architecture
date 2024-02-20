@@ -1,31 +1,27 @@
 package handler
 
 import (
-	"time"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
-	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
-	"github.com/sebajax/go-vertical-slice-architecture/internal/user/service"
+	"github.com/sebajax/go-vertical-slice-architecture/internal/product/service"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/message"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/validate"
 )
 
-// Body request schema for CreateUser
-type UserSchema struct {
-	IdentityNumber string    `json:"identity_number" validate:"required,min=6"`
-	FirstName      string    `json:"first_name" validate:"required,min=2"`
-	LastName       string    `json:"last_name" validate:"required,min=2"`
-	Email          string    `json:"email" validate:"required,email"`
-	DateOfBirth    time.Time `json:"date_of_birth" validate:"required"`
+// Body request schema for CreateProduct
+type ProductSchema struct {
+	Name     string  `json:"name" validate:"required,min=5"`
+	Sku      string  `json:"sku" validate:"required,min=8"`
+	Category string  `json:"category" validate:"required,min=5"`
+	Price    float64 `json:"price" validate:"required"`
 }
 
-// Creates a new user into the database
-func CreateUser(s service.CreateUserService) fiber.Handler {
+// Creates a new product into the database
+func CreateProduct(s service.CreateUserService) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Get body request
-		var body UserSchema
+		var body ProductSchema
 		// Validate the body
 		err := c.BodyParser(&body)
 		if err != nil {
@@ -42,7 +38,7 @@ func CreateUser(s service.CreateUserService) fiber.Handler {
 		}
 
 		// No schema errores then map body to domain
-		user := &user.User{
+		user := &product{
 			IdentityNumber: body.IdentityNumber,
 			FirstName:      body.FirstName,
 			LastName:       body.LastName,

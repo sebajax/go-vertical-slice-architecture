@@ -22,7 +22,7 @@ type UserSchema struct {
 }
 
 // Creates a new user into the database
-func CreateUser(s service.CreateUserService) fiber.Handler {
+func CreateUser(s *service.CreateUserService) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Get body request
 		var body UserSchema
