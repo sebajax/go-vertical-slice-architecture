@@ -82,6 +82,8 @@ A brief description of the layout:
 
 ### 1 - Create product.go (domain)
 
+https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263551bee3ee529de49b6d6fc5/internal/product/product.go#L1-L58
+
 ## ⚙️ Usage
 
 ### Docker usage
