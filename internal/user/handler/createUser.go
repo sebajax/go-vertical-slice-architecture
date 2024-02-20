@@ -8,7 +8,7 @@ import (
 	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
 	"github.com/sebajax/go-vertical-slice-architecture/internal/user/service"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
-	"github.com/sebajax/go-vertical-slice-architecture/pkg/messages"
+	"github.com/sebajax/go-vertical-slice-architecture/pkg/message"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/validate"
 )
 
@@ -59,6 +59,6 @@ func CreateUser(s service.CreateUserService) fiber.Handler {
 		}
 
 		// Success execution
-		return c.Status(fiber.StatusCreated).JSON(messages.SuccessResponse(&result))
+		return c.Status(fiber.StatusCreated).JSON(message.SuccessResponse(&result))
 	}
 }
