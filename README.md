@@ -175,6 +175,15 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a
 │   │           service.go
 ```
 
+#### 10 - Add dependency injection service using uber dig
+
+```tree
+├───pkg
+│   ├───injection
+```
+
+https://github.com/sebajax/go-vertical-slice-architecture/blob/eb79ccae805d23b6f77385a5f7ebfc81bb6174e0/pkg/injection/injection.go#L1-L73
+
 ## ⚙️ Usage
 
 ### Docker usage
