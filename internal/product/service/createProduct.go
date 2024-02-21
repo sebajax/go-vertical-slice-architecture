@@ -3,32 +3,27 @@ package service
 import (
 	"log"
 
-	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
+	"github.com/sebajax/go-vertical-slice-architecture/internal/product"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
 )
 
-// CreateUserService interface for DI
-type CreateUserService interface {
-	CreateUser(user *user.User) (int64, error)
+// Product use cases (port injection)
+type CreateProductService struct {
+	productRepository product.ProductRepository
 }
 
-// User use cases (port injection)
-type createUserService struct {
-	userRepository user.UserRepository
-}
-
-// Create a new user service use case instance
-func NewCreateUserService(repository user.UserRepository) CreateUserService {
-	// return the pointer to user service
-	return &createUserService{
-		userRepository: repository,
+// Create a new product service use case instance
+func NewCreateProductService(repository product.ProductRepository) *CreateProductService {
+	// return the pointer to product service
+	return &CreateProductService{
+		productRepository: repository,
 	}
 }
 
-// Create a new user and store the user in the database
-func (service *createUserService) CreateUser(u *user.User) (int64, error) {
-	_, check, err := service.userRepository.GetByEmail(u.Email)
-	// check if user does not exist and no database error ocurred
+// Create a new product and store the product into the database
+func (service *CreateProductService) CreateProduct(p *product.Product) (int64, error) {
+	_, check, err := service.productRepository.GetBySku(p.Sku)
+	// check if product sky does not exist and no database error ocurred
 	if err != nil {
 		// database error
 		log.Fatalln(err)
@@ -36,14 +31,14 @@ func (service *createUserService) CreateUser(u *user.User) (int64, error) {
 		return 0, err
 	}
 	if check {
-		// user found
-		log.Println(u, user.ErrorEmailExists)
-		err := apperror.BadRequest(user.ErrorEmailExists)
+		// product sku found
+		log.Println(p, product.ErrorSkuExists)
+		err := apperror.BadRequest(product.ErrorSkuExists)
 		return 0, err
 	}
 
-	// create the new user and return the id
-	userId, err := service.userRepository.Save(u)
+	// create the new product and return the id
+	id, err := service.productRepository.Save(p)
 	if err != nil {
 		// database error
 		log.Fatalln(err)
@@ -51,6 +46,6 @@ func (service *createUserService) CreateUser(u *user.User) (int64, error) {
 		return 0, err
 	}
 
-	// user created successfuly
-	return userId, nil
+	// product created successfuly
+	return id, nil
 }

@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
+	"github.com/sebajax/go-vertical-slice-architecture/internal/product"
 	"github.com/sebajax/go-vertical-slice-architecture/internal/product/service"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/apperror"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/message"
@@ -18,7 +19,7 @@ type ProductSchema struct {
 }
 
 // Creates a new product into the database
-func CreateProduct(s service.CreateUserService) fiber.Handler {
+func CreateProduct(s *service.CreateProductService) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Get body request
 		var body ProductSchema
@@ -38,16 +39,15 @@ func CreateProduct(s service.CreateUserService) fiber.Handler {
 		}
 
 		// No schema errores then map body to domain
-		user := &product{
-			IdentityNumber: body.IdentityNumber,
-			FirstName:      body.FirstName,
-			LastName:       body.LastName,
-			Email:          body.Email,
-			DateOfBirth:    body.DateOfBirth,
+		p := &product.Product{
+			Name:     body.Name,
+			Sku:      body.Sku,
+			Category: product.ParseProductCategory(body.Category),
+			Price:    body.Price,
 		}
 
 		// Execute the service
-		result, err := s.CreateUser(user)
+		result, err := s.CreateProduct(p)
 		if err != nil {
 			// if service response an error return via the middleware
 			log.Error(err)

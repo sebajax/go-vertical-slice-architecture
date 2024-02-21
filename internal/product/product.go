@@ -1,6 +1,9 @@
 package product
 
-import "time"
+import (
+	"strings"
+	"time"
+)
 
 // ProductCategory represents the categories of electronic products
 type ProductCategory int
@@ -29,6 +32,28 @@ func (p ProductCategory) String() string {
 		"Television",
 		"Other",
 	}[p]
+}
+
+// Parse ProductCategory converts a string to ProductCategory
+func ParseProductCategory(s string) ProductCategory {
+	switch strings.ToLower(s) {
+	case "laptop":
+		return Laptop
+	case "smartphone":
+		return Smartphone
+	case "tablet":
+		return Tablet
+	case "smartwatch":
+		return SmartWatch
+	case "headphones":
+		return Headphones
+	case "camera":
+		return Camera
+	case "television":
+		return Television
+	default:
+		return Other
+	}
 }
 
 // Const for error messages

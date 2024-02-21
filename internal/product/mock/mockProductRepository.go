@@ -1,24 +1,28 @@
 package mocks
 
-import "github.com/sebajax/go-vertical-slice-architecture/internal/user"
+import (
+	"time"
 
-type mockUserRepository struct{}
+	"github.com/sebajax/go-vertical-slice-architecture/internal/product"
+)
 
-func NewMockUserRepository() user.UserRepository {
-	return &mockUserRepository{}
+type mockProductRepository struct{}
+
+func NewMockProductRepository() product.ProductRepository {
+	return &mockProductRepository{}
 }
 
-func (mock *mockUserRepository) Save(u *user.User) (int64, error) {
+func (mock *mockProductRepository) Save(p *product.Product) (int64, error) {
 	return 1, nil
 }
 
-func (mock *mockUserRepository) GetByEmail(email string) (*user.User, bool, error) {
-	/*return &user.User{
-		Id: 1,
-		Email: "juan@example.com",
-		Name: "Juan",
-		DateOfBirth: time.Now(),
+func (mock *mockProductRepository) GetBySku(email string) (*product.Product, bool, error) {
+	return &product.Product{
+		Id:        1,
+		Name:      "ps5",
+		Sku:       "123456sony",
+		Category:  product.SmartWatch,
+		Price:     300.00,
 		CreatedAt: time.Now(),
-	}, true, nil*/
-	return nil, true, nil
+	}, true, nil
 }

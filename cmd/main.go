@@ -8,7 +8,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
-	"github.com/sebajax/go-vertical-slice-architecture/internal/user/handler"
+	producthandler "github.com/sebajax/go-vertical-slice-architecture/internal/product/handler"
+	userhandler "github.com/sebajax/go-vertical-slice-architecture/internal/user/handler"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/injection"
 	"github.com/sebajax/go-vertical-slice-architecture/pkg/middleware"
 )
@@ -37,10 +38,16 @@ func main() {
 		return c.SendString("Status ok - api running")
 	})
 
-	// add api group for users
-	api := app.Group("/api")       // /api
-	userApi := api.Group("/users") // /api/user
-	handler.UserRouter(userApi, injection.UserServiceProvider)
+	// create api group
+	api := app.Group("/api") // /api
+
+	// add api group for user
+	userApi := api.Group("/user") // /api/user
+	userhandler.UserRouter(userApi, injection.UserServiceProvider)
+
+	// add api group for product
+	productApi := api.Group("/product") // /api/product
+	producthandler.ProductRouter(productApi, injection.ProductServiceProvider)
 
 	// listen in port 8080
 	log.Fatal(app.Listen(fmt.Sprintf(":%s", os.Getenv("API_PORT"))))

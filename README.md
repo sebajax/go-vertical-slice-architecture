@@ -196,6 +196,9 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263
 ### Formatting, Linting and Vetting
 
 ```bash
+    # Clean dependencies
+        go mod tidy
+
     # Run formating
         go fmt ./...
 

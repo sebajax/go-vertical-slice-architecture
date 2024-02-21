@@ -22,7 +22,7 @@ func ProvideUserComponents(c *dig.Container) {
 		panic(err)
 	}
 
-	//service provider injection
+	// service provider injection
 	err = c.Provide(NewCreateUserService)
 	if err != nil {
 		panic(err)

@@ -42,7 +42,7 @@ func CreateUser(s *service.CreateUserService) fiber.Handler {
 		}
 
 		// No schema errores then map body to domain
-		user := &user.User{
+		u := &user.User{
 			IdentityNumber: body.IdentityNumber,
 			FirstName:      body.FirstName,
 			LastName:       body.LastName,
@@ -51,7 +51,7 @@ func CreateUser(s *service.CreateUserService) fiber.Handler {
 		}
 
 		// Execute the service
-		result, err := s.CreateUser(user)
+		result, err := s.CreateUser(u)
 		if err != nil {
 			// if service response an error return via the middleware
 			log.Error(err)

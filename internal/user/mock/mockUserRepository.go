@@ -1,6 +1,10 @@
 package mocks
 
-import "github.com/sebajax/go-vertical-slice-architecture/internal/user"
+import (
+	"time"
+
+	"github.com/sebajax/go-vertical-slice-architecture/internal/user"
+)
 
 type mockUserRepository struct{}
 
@@ -13,12 +17,13 @@ func (mock *mockUserRepository) Save(u *user.User) (int64, error) {
 }
 
 func (mock *mockUserRepository) GetByEmail(email string) (*user.User, bool, error) {
-	/*return &user.User{
-		Id: 1,
-		Email: "juan@example.com",
-		Name: "Juan",
-		DateOfBirth: time.Now(),
-		CreatedAt: time.Now(),
-	}, true, nil*/
-	return nil, true, nil
+	return &user.User{
+		Id:             1,
+		IdentityNumber: "9999999",
+		FirstName:      "Joe",
+		LastName:       "Doe",
+		DateOfBirth:    time.Now(),
+		Email:          "joe@doe.com",
+		CreatedAt:      time.Now(),
+	}, true, nil
 }

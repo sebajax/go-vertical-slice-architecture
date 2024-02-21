@@ -1,40 +1,40 @@
 package service
 
 import (
-	"github.com/sebajax/go-vertical-slice-architecture/internal/user/infrastructure"
+	"github.com/sebajax/go-vertical-slice-architecture/internal/product/infrastructure"
 	"go.uber.org/dig"
 )
 
-// user service instance
-type UserService struct {
-	CreateUserServiceProvider CreateUserService
+// product service instance
+type ProductService struct {
+	CreateProductServiceProvider *CreateProductService
 }
 
-func NewUserService() *UserService {
-	return &UserService{}
+func NewProductService() *ProductService {
+	return &ProductService{}
 }
 
 // provide components for injection
-func ProvideUserComponents(c *dig.Container) {
+func ProvideProductComponents(c *dig.Container) {
 	// repositorory provider injection
-	err := c.Provide(infrastructure.NewUserRepository)
+	err := c.Provide(infrastructure.NewProductRepository)
 	if err != nil {
 		panic(err)
 	}
 
-	//service provider injection
-	err = c.Provide(NewCreateUserService)
+	// service provider injection
+	err = c.Provide(NewCreateProductService)
 	if err != nil {
 		panic(err)
 	}
 }
 
 // init service container
-func (us *UserService) InitUserComponents(c *dig.Container) error {
-	// create user service
+func (ps *ProductService) InitProductComponents(c *dig.Container) error {
+	// create product service
 	err := c.Invoke(
-		func(s CreateUserService) {
-			us.CreateUserServiceProvider = s
+		func(s *CreateProductService) {
+			ps.CreateProductServiceProvider = s
 		},
 	)
 

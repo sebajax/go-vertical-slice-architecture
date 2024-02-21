@@ -20,7 +20,7 @@ func NewCreateUserService(repository user.UserRepository) *CreateUserService {
 	}
 }
 
-// Create a new user and store the user in the database
+// Create a new user and store the user into the database
 func (service *CreateUserService) CreateUser(u *user.User) (int64, error) {
 	_, check, err := service.userRepository.GetByEmail(u.Email)
 	// check if user does not exist and no database error ocurred
@@ -38,7 +38,7 @@ func (service *CreateUserService) CreateUser(u *user.User) (int64, error) {
 	}
 
 	// create the new user and return the id
-	userId, err := service.userRepository.Save(u)
+	id, err := service.userRepository.Save(u)
 	if err != nil {
 		// database error
 		log.Fatalln(err)
@@ -47,5 +47,5 @@ func (service *CreateUserService) CreateUser(u *user.User) (int64, error) {
 	}
 
 	// user created successfuly
-	return userId, nil
+	return id, nil
 }
