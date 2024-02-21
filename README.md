@@ -93,6 +93,8 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263
 
 #### 2 - Create infrastructure/productRepository.go (DB query)
 
+https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a95216b0b93d8166c3912ef5/internal/product/infrastructure/productRepository.go#L1-L61
+
 ```tree
 ├───internal
 │   ├───product
@@ -101,6 +103,8 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263
 ```
 
 #### 3 - Create port.go (dp injection for the service)
+
+https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a95216b0b93d8166c3912ef5/internal/product/port.go#L1-L7
 
 #### 4 - Create service/createProduct.go (create a new product use case implementation)
 
@@ -112,6 +116,8 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263
 │   │           service.go
 ```
 
+https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a95216b0b93d8166c3912ef5/internal/product/service/createProduct.go#L1-L51
+
 #### 5 - Create service/service.go (dependency injection service using uber dig)
 
 ```tree
@@ -121,6 +127,8 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263
 │   │           createProduct.go
 │   │           service.go
 ```
+
+https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a95216b0b93d8166c3912ef5/internal/product/service/service.go#L1-L42
 
 #### 6 - Create handler/createProduct.go (create a new hanlder presenter to call the use case)
 
@@ -132,6 +140,8 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263
 │   │   │       handler.go
 ```
 
+https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a95216b0b93d8166c3912ef5/internal/product/handler/createProduct.go#L1-L60
+
 #### 7 - Create handler/handler.go (handles all the routes for all the presenters)
 
 ```tree
@@ -142,6 +152,8 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263
 │   │   │       handler.go
 ```
 
+https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a95216b0b93d8166c3912ef5/internal/product/handler/handler.go#L1-L11
+
 #### 8 - Create mock/mockProductRepository.go (mocks the user repository implementation for unit testing)
 
 ```tree
@@ -150,6 +162,8 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/d4501917930ef2263
 │   │   ├───mock
 │   │   │       mockProductRepository.go
 ```
+
+https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a95216b0b93d8166c3912ef5/internal/product/mock/mockProductRepository.go#L1-L28
 
 #### 9 - Create service/createProduct_test.go (create a unit test for the service)
 
