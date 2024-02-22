@@ -252,6 +252,65 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/eb79ccae805d23b6f
     # It will run automatically when the database initializes
 ```
 
+#### Usage with Makefile
+
+This project includes a Makefile to simplify the process of building, running, and maintaining the application. Below are the available commands:
+
+- You should modify the POSTGRESQL_URL on the Makefile
+
+### Docker Usage
+
+- **Build the server:**  
+  `make build-server`
+
+- **Start the server:**  
+  `make start-server`
+
+- **Stop the server:**  
+  `make stop-server`
+
+### Standalone Usage
+
+- **Live reload for development:**  
+  `make live-reload`
+
+### Testing
+
+- **Run unit tests:**  
+  `make test`
+
+- **Run unit tests with coverage:**  
+  `make test-coverage`
+
+### Formatting, Linting, and Vetting
+
+- **Clean dependencies:**  
+  `make clean-deps`
+
+- **Format code:**  
+  `make format`
+
+- **Remove unused imports:**  
+  `make clean-imports`
+
+- **Lint code:**  
+  `make lint`
+
+- **Vet code:**  
+  `make vet`
+
+- **Check for shadowed variables:**  
+  `make check-shadow`
+
+### Database Migration
+
+- **Create a migration script:**  
+  Replace `your_script_name` with your actual script name.  
+  `make migrate-create name=your_script_name`
+
+- **Run migration scripts:**  
+  `make migrate-up`
+
 ## 💻 Environment variables
 
 To modify/add configuration via environment variables, use the `.env` file, which contains basic app configuration.
