@@ -1,14 +1,24 @@
 disable-version-string: true
 mockname: '{{.InterfaceName}}'
 filename: '{{.MockName}}.go'
-outpkg: mocks
+outpkg: mock
+with-expecter: true
 packages:
-  github.com/sebajax/go-architecture-angrycoders/internal/user:
+  github.com/sebajax/go-vertical-slice-architecture/internal/user:
     # place your package-specific config here
     config:
-      dir: 'internal/{{.PackageName}}/mocks'
+      dir: 'internal/{{.PackageName}}/mock'
     interfaces:
       # select the interfaces you want mocked
       UserRepository:
+        # Modify package-level config for this specific interface (if applicable)
+        config:
+  github.com/sebajax/go-vertical-slice-architecture/internal/product:
+    # place your package-specific config here
+    config:
+      dir: 'internal/{{.PackageName}}/mock'
+    interfaces:
+      # select the interfaces you want mocked
+      ProductRepository:
         # Modify package-level config for this specific interface (if applicable)
         config:

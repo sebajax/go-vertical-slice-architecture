@@ -26,7 +26,7 @@ func (service *CreateProductService) CreateProduct(p *product.Product) (int64, e
 	// check if product sky does not exist and no database error ocurred
 	if err != nil {
 		// database error
-		log.Fatalln(err)
+		log.Println(err)
 		err := apperror.InternalServerError()
 		return 0, err
 	}
@@ -41,7 +41,7 @@ func (service *CreateProductService) CreateProduct(p *product.Product) (int64, e
 	id, err := service.productRepository.Save(p)
 	if err != nil {
 		// database error
-		log.Fatalln(err)
+		log.Println(err)
 		err := apperror.InternalServerError()
 		return 0, err
 	}

@@ -19,7 +19,7 @@ type User struct {
 }
 
 // Create a new user instance
-func New(in string, n string, fn string, ln string, e string, dob time.Time) (*User, error) {
+func New(in string, fn string, ln string, e string, dob time.Time) (*User, error) {
 	return &User{
 		IdentityNumber: in,
 		FirstName:      fn,

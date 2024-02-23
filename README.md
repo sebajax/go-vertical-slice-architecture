@@ -60,10 +60,6 @@ A brief description of the layout:
 
 ## 🤜 How to create a new use case (Example)
 
-### Database diagram for the project
-
-![alt text](./image/db_diagram.png)
-
 ### Internal folder structure for a new domain all folders and files go in internal/product/
 
 ```tree
@@ -210,7 +206,7 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/eb79ccae805d23b6f
 
 ```bash
     # To run unit testing
-        go test
+        go test ./...
 
     # To run unit testing coverage
         go test -cover ./...
