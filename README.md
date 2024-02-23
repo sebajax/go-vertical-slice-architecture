@@ -184,7 +184,75 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a
 
 https://github.com/sebajax/go-vertical-slice-architecture/blob/eb79ccae805d23b6f77385a5f7ebfc81bb6174e0/pkg/injection/injection.go#L1-L73
 
-## ⚙️ Usage
+## ⚙️ Usage without Make
+
+### Docker usage
+
+```bash
+    # Build server
+        docker-compose -p go-vertical-slice-architecture build
+
+    # Start server
+        docker-compose up -d
+
+    # Stop server
+        docker-compose down
+```
+
+### Standalone usage
+
+```bash
+    # Live reload
+        air
+```
+
+### Testing
+
+```bash
+    # To run unit testing
+        go test
+
+    # To run unit testing coverage
+        go test -cover ./...
+```
+
+### Formatting, Linting and Vetting
+
+```bash
+    # Clean dependencies
+        go mod tidy
+
+    # Run formating
+        go fmt ./...
+
+    # Remove unused imports
+        goimports -l -w .
+
+    # Run linting
+        golangci-lint run ./...
+
+    # Run vetting
+        go vet ./...
+
+    # Run shadow to check shadowed variables
+        # Install shadow
+        go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow@latest
+        # Run shadow
+        shadow ./...
+```
+
+### Database migration script
+
+```bash
+    # Create the script
+        migrate create -ext sql -dir /migrations -seq [script_name]
+    # Run the script
+        migrate -database ${POSTGRESQL_URL} -path /migrations up
+
+    # It will run automatically when the database initializes
+```
+
+## ⚙️ Usage with Make
 
 ### Docker usage
 
