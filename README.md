@@ -258,64 +258,67 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/eb79ccae805d23b6f
 
 ```bash
     # Build server
-        docker-compose -p go-vertical-slice-architecture build
+        make build-server
 
     # Start server
-        docker-compose up -d
+        make start-server
 
     # Stop server
-        docker-compose down
+        make stop-server
 ```
 
 ### Standalone usage
 
 ```bash
     # Live reload
-        air
+        make live-reload
 ```
 
 ### Testing
 
 ```bash
     # To run unit testing
-        go test
+        make test
 
     # To run unit testing coverage
-        go test -cover ./...
+        make test-coverage
 ```
 
 ### Formatting, Linting and Vetting
 
 ```bash
     # Clean dependencies
-        go mod tidy
+        make clean-deps
 
     # Run formating
-        go fmt ./...
+        make format
 
     # Remove unused imports
-        goimports -l -w .
+        make clean-imports
 
     # Run linting
-        golangci-lint run ./...
+        make lint
 
     # Run vetting
-        go vet ./...
+        make vet
 
     # Run shadow to check shadowed variables
         # Install shadow
         go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow@latest
         # Run shadow
-        shadow ./...
+        make check-shadow
+
+    # Run vetting to lint, format and vet your once
+        make lint-format
 ```
 
 ### Database migration script
 
 ```bash
-    # Create the script
-        migrate create -ext sql -dir /migrations -seq [script_name]
+    # Create the script (replace your_script_name with the actual name)
+        make migrate-create name=your_script_name
     # Run the script
-        migrate -database ${POSTGRESQL_URL} -path /migrations up
+        make migrate-up
 
     # It will run automatically when the database initializes
 ```
