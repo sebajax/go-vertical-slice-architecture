@@ -150,7 +150,7 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a
 
 https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a95216b0b93d8166c3912ef5/internal/product/handler/handler.go#L1-L11
 
-#### 8 - Create mock/mockProductRepository.go (mocks the user repository implementation for unit testing)
+#### 8 - Create mock/ProductRepository.go (mocks the user repository implementation for unit testing)
 
 ```tree
 ├───internal
@@ -159,7 +159,10 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a
 │   │   │       mockProductRepository.go
 ```
 
-https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a95216b0b93d8166c3912ef5/internal/product/mock/mockProductRepository.go#L1-L28
+```bash
+    # It uses mockery Run
+        mockery
+```
 
 #### 9 - Create service/createProduct_test.go (create a unit test for the service)
 
@@ -170,6 +173,8 @@ https://github.com/sebajax/go-vertical-slice-architecture/blob/872df7def565c7e0a
 │   │           createProduct.go
 │   │           service.go
 ```
+
+https://github.com/sebajax/go-vertical-slice-architecture/blob/9ff7ae658ee5bada18b88ec4a03994a105ccbe02/internal/product/service/createProduct_test.go#L1-L97
 
 #### 10 - Add dependency injection service using uber dig
 
