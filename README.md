@@ -60,6 +60,17 @@ A brief description of the layout:
 
 ## 🤜 How to create a new use case (Example)
 
+```http
+  POST /api/product
+```
+
+| Parameter  | Type     | Description                              |
+| :--------- | :------- | :--------------------------------------- |
+| `name`     | `string` | **Required**. Product Name               |
+| `sku`      | `string` | **Required**. Product Sku must be Unique |
+| `category` | `string` | **Required**. Product Category           |
+| `price`    | `float`  | **Required**. Product Price              |
+
 ### Internal folder structure for a new domain all folders and files go in internal/product/
 
 ```tree
