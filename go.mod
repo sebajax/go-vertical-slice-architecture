@@ -4,7 +4,7 @@ go 1.21.6
 
 require (
 	github.com/go-playground/validator/v10 v10.17.0
-	github.com/gofiber/fiber/v2 v2.52.0
+	github.com/gofiber/fiber/v2 v2.52.1
 	github.com/golang-migrate/migrate/v4 v4.17.0
 	github.com/jackc/pgx/v5 v5.5.3
 	github.com/sebajax/go-architecture-angrycoders v0.0.0-20240215234534-8b0c71a519da
